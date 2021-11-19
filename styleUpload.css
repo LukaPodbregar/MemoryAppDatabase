@@ -1,0 +1,35 @@
+body {
+	background-color: lightYellow;
+	font-family:"Calibri";
+}
+.center{
+	margin-left:auto;
+	margin-right:auto;
+	width:60%;
+}
+.float{
+	float:left;
+	margin-right:10px;
+}
+.clarFloat{
+	float:clear;
+}
+#logo{
+	height:40px;
+}
+img.content {
+    max-width: 30%;
+    max-height: 30%;
+}
+img {
+    float: left;
+    max-width: 200px;
+    max-height: 200px;
+    justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+#result {
+	text-align: center;
+    width: 150px;
+}
