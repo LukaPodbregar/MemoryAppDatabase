@@ -12,7 +12,7 @@ function userImages(){
 				console.log("Napaka pri razčlenjevanju podatkov");
 				return;
 			}
-			clearImages();
+			document.getElementById('result').innerHTML = "";
 			responseJASON.forEach(element => getImage(element.path, element.imageName));
 		}
 	};
@@ -29,8 +29,4 @@ function getImage(imagePath, imageName) {
 	div.appendChild(text);
 	div.appendChild(img);
     document.getElementById('result').appendChild(div);
-}
-
-function clearImages(){
-	document.getElementById('result').innerHTML = "";
 }
