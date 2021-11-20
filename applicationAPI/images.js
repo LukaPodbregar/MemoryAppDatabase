@@ -12,8 +12,8 @@ function userImages(){
 				console.log("Napaka pri razčlenjevanju podatkov");
 				return;
 			}
-			responseJASON.forEach(element => imagePath(element.path, element.imageName));
-			//responseJASON.forEach(element => imageName(element.imageName));
+			clearImages();
+			responseJASON.forEach(element => getImage(element.path, element.imageName));
 		}
 	};
 	 
@@ -21,12 +21,16 @@ function userImages(){
 	httpRequest.send();
 }
 
-function imagePath(imagePath, imageName) {
+function getImage(imagePath, imageName) {
 	let div = document.createElement('div');
-    var img = document.createElement("IMG");
+    var img = document.createElement('IMG');
     img.src = imagePath;
 	let text = document.createTextNode(imageName);
 	div.appendChild(text);
 	div.appendChild(img);
     document.getElementById('result').appendChild(div);
+}
+
+function clearImages(){
+	document.getElementById('result').innerHTML = "";
 }

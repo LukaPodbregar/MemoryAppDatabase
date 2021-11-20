@@ -3,7 +3,6 @@ $DEBUG = true;
 include("tools.php"); 
 
 $database = dbConnect();
-
 $msg = "";
 
 if (isset($_POST['upload'])) {
@@ -19,14 +18,17 @@ if (isset($_POST['upload'])) {
         if (move_uploaded_file($tempname, $path)) {
             if(mysqli_query($database, $request)){
                 http_response_code(201);
+                $msg = "Image added successfully!";
             }
             else{
                 http_response_code(500);
+                $msg = "Server error!";
             }
         }
     }
     else{
         http_response_code(404);
+        $msg = "User not found!";
     }
 }
 ?>
@@ -50,7 +52,7 @@ if (isset($_POST['upload'])) {
                 <input type="file" name="uploadfile" value=""/><br>
                 <button type="submit" name="upload">UPLOAD</button>
             </form>
-            <div id="response"></div>
+            <?php echo $msg?>
         </div>
     </body>
 </html>
