@@ -50,7 +50,9 @@ function loginUser($username, $password){
 
 	if(mysqli_num_rows($result)>0){
 		if(password_verify($passwordInput, $hashedPassword)){
-			http_response_code(204);
+			$response = 'Login succesful!';
+			http_response_code(200);
+			echo json_encode($response);
 		}
 		else{
 			http_response_code(401); // Unauthorized
