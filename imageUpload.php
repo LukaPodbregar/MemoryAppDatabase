@@ -10,8 +10,9 @@ if (isset($_POST['upload'])) {
     $tempname = $_FILES["uploadfile"]["tmp_name"];    
     $userID = $_POST['userID'];
     $imageName = $_POST['imageName'];
+    $sex = $_POST['sex'];
     $path = "userImages/".$userID."_".$filename;
-    $request = "INSERT INTO images (userID, imageName, path) VALUES ($userID, '$imageName', '$path')";
+    $request = "INSERT INTO images (userID, imageName, path, sex) VALUES ($userID, '$imageName', '$path', $sex)";
     $requestUserID="SELECT username FROM application.users WHERE userID=$userID";
 
     if(mysqli_num_rows(mysqli_query($database, $requestUserID))>0){
@@ -49,6 +50,8 @@ if (isset($_POST['upload'])) {
                 <input type="text" name="userID" required/> <br>
                 <label for="imageName">Name of the person:</label><br>
                 <input type="text" name="imageName" required/> <br>
+                <label for="sex">Gender of the person (0 for male, 1 for female):</label><br>
+                <input type="number" name="sex" min="0" max="1" step="1" required/> <br>
                 <input type="file" name="uploadfile" value=""/><br>
                 <button type="submit" name="upload">UPLOAD</button>
             </form>

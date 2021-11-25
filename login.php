@@ -32,8 +32,8 @@ function fetchAllUsers(){
 	$request="SELECT username, userID FROM application.users";	
 	$result=mysqli_query($database, $request);
 	
-	while($vrstica=mysqli_fetch_assoc($result)){
-		$response[]=$vrstica;
+	while($row=mysqli_fetch_assoc($result)){
+		$response[]=$row;
 	}
 	
 	http_response_code(200);
@@ -44,18 +44,25 @@ function loginUser($username, $password){
 	global $database;
 	$username=mysqli_escape_string($database, $username);
 	$passwordInput=mysqli_escape_string($database, $password);
-	$request="SELECT password FROM application.users WHERE username='$username'";
-	$result=mysqli_query($database, $request);
-	$hashedPassword = $result->fetch_array()[0];
+	$requestPW="SELECT password FROM application.users WHERE username='$username'";
+	$requestUserID="SELECT userID FROM application.users WHERE username='$username'";
+	$resultPW=mysqli_query($database, $requestPW);
+	$resultUserID=mysqli_query($database, $requestUserID);
+	
 
-	if(mysqli_num_rows($result)>0){
+	if(mysqli_num_rows($resultPW)>0){
+		$userID = $resultUserID->fetch_array()[0];
+		$hashedPassword = $resultPW->fetch_array()[0];
 		if(password_verify($passwordInput, $hashedPassword)){
 			$response = 'Login succesful!';
+			$array = Array(
+				"LoginStatus" => $response,
+				"userID" => $userID);
 			http_response_code(200);
-			echo json_encode($response);
+			echo json_encode($array);
 		}
 		else{
-			http_response_code(401); // Unauthorized
+			http_response_code(401); 
 		}
 	}
 	else{
