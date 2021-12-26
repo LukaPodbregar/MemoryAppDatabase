@@ -2,6 +2,9 @@
 $DEBUG = true;
 include("tools.php"); 
 
+require 'vendor/autoload.php';
+use ReallySimpleJWT\Token;
+
 $database = dbConnect();
 
 header('Content-Type: application/json');	
@@ -54,10 +57,15 @@ function loginUser($username, $password){
 		$userID = $resultUserID->fetch_array()[0];
 		$hashedPassword = $resultPW->fetch_array()[0];
 		if(password_verify($passwordInput, $hashedPassword)){
+			// Create jwt token	
+			$secret = 'sec!ReT423*&';
+			$expiration = time() + 3600;
+			$issuer = 'localhost';
+			$token = Token::create($userID, $secret, $expiration, $issuer);
 			$response = 'Login succesful!';
 			$array = Array(
 				"LoginStatus" => $response,
-				"userID" => $userID);
+				"token" => $token);
 			http_response_code(200);
 			echo json_encode($array);
 		}

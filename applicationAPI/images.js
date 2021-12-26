@@ -1,9 +1,6 @@
 function userImages(){
-	var userID = document.getElementById("form")["userID"].value;
-
 	var httpRequest = new XMLHttpRequest();
-	httpRequest.onreadystatechange = function()
-	{
+	httpRequest.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 201)	{
 			try{
 				var responseJASON = JSON.parse(this.response);
@@ -17,9 +14,9 @@ function userImages(){
 		}
 	};
 	 
-	httpRequest.open("GET", "/application/images/"+userID, true);
+	httpRequest.open("GET", "/application/images/"+token, true);
 	httpRequest.send();
-}
+	}
 
 function getImage(imagePath, imageName) {
 	let div = document.createElement('div');

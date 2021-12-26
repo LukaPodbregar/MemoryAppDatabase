@@ -7,7 +7,10 @@ RewriteRule ^userData/?$ userData.php [NC,L]
 RewriteRule ^userData/(.+)/?$ userData.php?userID=$1 [NC,L]	
 
 RewriteRule ^images/?$ images.php [NC,L]						
-RewriteRule ^images/(.+)/?$ images.php?userID=$1 [NC,L] 
+RewriteRule ^images/(.+)/?$ images.php?token=$1 [NC,L] 
+
+RewriteRule ^imagesDisplay/?$ imagesDisplay.php [NC,L]						
+RewriteRule ^imagesDisplay/(.+)/?$ imagesDisplay.php?token=$1 [NC,L] 
 
 RewriteRule ^login/?$ login.php [NC,L]						
 RewriteRule ^login/(.+)/(.+)/?$ login.php?username=$1&password=$2 [NC,L] 

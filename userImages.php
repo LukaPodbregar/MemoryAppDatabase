@@ -11,8 +11,8 @@
             <?php include "Menu.html"?>
 
             <form id="form" onsubmit="userImages(); return false;">
-				<label for="userID">UserID:</label>
-				<input type="text" name="userID" required /><br>
+				<label for="token">Token:</label>
+				<input type="text" name="token" required /><br>
 				<input type="submit" value="Search" />
             </form>
             <div id="result"></div>

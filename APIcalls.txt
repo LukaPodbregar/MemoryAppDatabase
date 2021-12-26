@@ -3,4 +3,6 @@ http://127.0.0.1/application/users ...[POST]  {"username": "", "password": ""} a
 http://127.0.0.1/application/users/X ... return username/pw of user id X
 http://127.0.0.1/application/images/X ... return imageName and image path of all images of user id X
 http://127.0.0.1/application/login ... return usernames, userID of all users
-http://127.0.0.1/application/login/Y/Z ... returns 204 if username Y and password Z match the one in database
+http://127.0.0.1/application/login/Y/Z ... returns 204 + JWT token if username Y and password Z match the one in database
+http://127.0.0.1/application/imagesDisplay/token ... returns images if valid token
+http://127.0.0.1/application/userImages/X ... displays image X from path 
