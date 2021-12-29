@@ -31,7 +31,7 @@ function fetchUserImages($token){
 		// Validate token and retrieve payload (userID)
 		$payload = Token::getPayload($token, $secret);
 		$userID = $payload["user_id"];
-		$request="SELECT path, imageName FROM application.images WHERE userID=$userID";
+		$request="SELECT path, imageName, gender FROM application.images WHERE userID=$userID";
 		$requestUserID="SELECT username FROM application.users WHERE userID=$userID";
 		$userIdNumber = mysqli_query($database, $requestUserID);
 		if(mysqli_num_rows($userIdNumber)>0){

@@ -15,6 +15,9 @@ RewriteRule ^imagesDisplay/(.+)/?$ imagesDisplay.php?token=$1 [NC,L]
 RewriteRule ^login/?$ login.php [NC,L]						
 RewriteRule ^login/(.+)/(.+)/?$ login.php?username=$1&password=$2 [NC,L] 
 
+RewriteRule ^names/?$ names.php [NC,L]
+RewriteRule ^names/(.+)/?$ names.php?gender=$1 [NC,L]	
+
 <Files tools.php>
 Order allow,deny
 Deny from all
