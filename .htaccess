@@ -16,7 +16,10 @@ RewriteRule ^login/?$ login.php [NC,L]
 RewriteRule ^login/(.+)/(.+)/?$ login.php?username=$1&password=$2 [NC,L] 
 
 RewriteRule ^names/?$ names.php [NC,L]
-RewriteRule ^names/(.+)/?$ names.php?gender=$1 [NC,L]	
+RewriteRule ^names/(.+)/?$ names.php?gender=$1 [NC,L]
+
+RewriteRule ^imageUploadAndroid/?$ imageUploadAndroid.php [NC,L]						
+RewriteRule ^imageUploadAndroid/(.+)/?$ imageUploadAndroid.php?token=$1 [NC,L] 
 
 <Files tools.php>
 Order allow,deny
