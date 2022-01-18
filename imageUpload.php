@@ -11,7 +11,8 @@ if (isset($_POST['upload'])) {
     $userID = $_POST['userID'];
     $imageName = $_POST['imageName'];
     $gender = $_POST['gender'];
-    $path = "userImages/".$userID."_".$filename;
+    $timeStamp = time();
+    $path = "userImages/".$userID."_".$timeStamp."_".$filename;
     $request = "INSERT INTO images (userID, imageName, path, gender) VALUES ($userID, '$imageName', '$path', '$gender')";
     $requestUserID="SELECT username FROM application.users WHERE userID=$userID";
 

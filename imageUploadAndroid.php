@@ -30,7 +30,8 @@ function uploadImage($token, $imageBase64, $name, $gender, $extension){
 	if(Token::validate($token, $secret)){
         $payload = Token::getPayload($token, $secret);
 		$userID = $payload["user_id"];
-        $path = "userImages/".$userID."_".$name.".".$extension;
+        $timeStamp = time();
+        $path = "userImages/".$userID."_".$timeStamp."_".$name.".".$extension;
         $newImage = fopen($path, "w+");
         fwrite($newImage, base64_decode($imageBase64));
         fclose($newImage);        
