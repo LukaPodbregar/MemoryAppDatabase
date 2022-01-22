@@ -9,6 +9,9 @@ RewriteRule ^userData/(.+)/?$ userData.php?userID=$1 [NC,L]
 RewriteRule ^images/?$ images.php [NC,L]						
 RewriteRule ^images/(.+)/?$ images.php?token=$1 [NC,L] 
 
+RewriteRule ^imagesRandom/?$ imagesRandom.php [NC,L]						
+RewriteRule ^imagesRandom/(.+)/?$ imagesRandom.php?token=$1 [NC,L] 
+
 RewriteRule ^imagesDisplay/?$ imagesDisplay.php [NC,L]						
 RewriteRule ^imagesDisplay/(.+)/?$ imagesDisplay.php?token=$1 [NC,L] 
 
