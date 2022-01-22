@@ -13,7 +13,10 @@ RewriteRule ^imagesRandom/?$ imagesRandom.php [NC,L]
 RewriteRule ^imagesRandom/(.+)/?$ imagesRandom.php?token=$1 [NC,L] 
 
 RewriteRule ^imagesDisplay/?$ imagesDisplay.php [NC,L]						
-RewriteRule ^imagesDisplay/(.+)/?$ imagesDisplay.php?token=$1 [NC,L] 
+RewriteRule ^imagesDisplay/(.+)/?$ imagesDisplay.php?token=$1 [NC,L]
+
+RewriteRule ^imageUpdate/?$ imageUpdate.php [NC,L]						
+RewriteRule ^imageUpdate/(.+)/?$ imageUpdate.php?token=$1 [NC,L] 
 
 RewriteRule ^login/?$ login.php [NC,L]						
 RewriteRule ^login/(.+)/(.+)/?$ login.php?username=$1&password=$2 [NC,L] 

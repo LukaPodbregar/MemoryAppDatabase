@@ -35,13 +35,12 @@ function uploadImage($token, $imageBase64, $name, $gender, $extension){
         $newImage = fopen($path, "w+");
         fwrite($newImage, base64_decode($imageBase64));
         fclose($newImage);        
-        $request = "INSERT INTO images (userID, imageName, path, gender) VALUES ($userID, '$name', '$path', '$gender')";
+        $request = "INSERT INTO application.images (userID, imageName, path, gender) VALUES ($userID, '$name', '$path', '$gender')";
         $requestUserID="SELECT username FROM application.users WHERE userID=$userID";
         if(mysqli_num_rows(mysqli_query($database, $requestUserID))>0){
             if(mysqli_query($database, $request)){
                 http_response_code(201);
                 $msg = "Image added successfully!";
-                echo $msg;
             }
             else{
                 http_response_code(500);
@@ -52,6 +51,7 @@ function uploadImage($token, $imageBase64, $name, $gender, $extension){
             http_response_code(404);
             $msg = "User not found!";
         }
+        echo $msg;
     }
 
 }
