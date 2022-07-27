@@ -7,9 +7,9 @@ use ReallySimpleJWT\Token;
 
 $database = dbConnect();
 
-header('Content-Type: application/json');	
-header('Access-Control-Allow-Origin: *');	
-header('Access-Control-Allow-Methods: GET');		
+header('Content-Type: application/json');	// MIME type of response	
+header('Access-Control-Allow-Origin: *');   // Allow access from outside of current domain (CORS)	
+header('Access-Control-Allow-Methods: GET');	// Allowed methods		
 
 switch($_SERVER["REQUEST_METHOD"]){
 	case 'GET':
@@ -17,12 +17,11 @@ switch($_SERVER["REQUEST_METHOD"]){
 			fetchUserImages($_GET["token"]);	
 		}
 		break;
-
 	}
 mysqli_close($database);
 
 // Functions
-function fetchUserImages($token){
+function fetchUserImages($token){ // Function checks if token is correct. If it is, it fetches all user images and their data
 	global $database;
 	$response=array();
 	$token=mysqli_escape_string($database, $token);
@@ -39,15 +38,15 @@ function fetchUserImages($token){
 			while ($row = mysqli_fetch_assoc($result)){
 				$response[]=$row; 
 			}
-			http_response_code(201);
+			http_response_code(201);    // OK
 			echo json_encode($response);
 		}
 		else{
-			http_response_code(404);		//Not found
+			http_response_code(404);	//Not found
 		}
 	}
 	else{
-		http_response_code(401);
+		http_response_code(401);	//Not found
 	}
 }
 

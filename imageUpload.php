@@ -5,7 +5,7 @@ include("tools.php");
 $database = dbConnect();
 $msg = "";
 
-if (isset($_POST['upload'])) {
+if (isset($_POST['upload'])) { // Upload image via browser interface
     $filename = $_FILES["uploadfile"]["name"];
     $tempname = $_FILES["uploadfile"]["tmp_name"];    
     $userID = $_POST['userID'];
@@ -19,17 +19,17 @@ if (isset($_POST['upload'])) {
     if(mysqli_num_rows(mysqli_query($database, $requestUserID))>0){
         if (move_uploaded_file($tempname, $path)) {
             if(mysqli_query($database, $request)){
-                http_response_code(201);
+                http_response_code(201); // OK
                 $msg = "Image added successfully!";
             }
             else{
-                http_response_code(500);
+                http_response_code(500);	//Server error
                 $msg = "Server error!";
             }
         }
     }
     else{
-        http_response_code(404);
+        http_response_code(404);	//Not found
         $msg = "User not found!";
     }
 }

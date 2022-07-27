@@ -4,9 +4,9 @@ include("tools.php");
 
 $database = dbConnect();
 
-header('Content-Type: application/json');	//Nastavimo MIME tip vsebine responsea
-header('Access-Control-Allow-Origin: *');	//Dovolimo dostop izven trenutne domene (CORS)
-header('Access-Control-Allow-Methods: GET');		//V preflight poizvedbi za CORS sta dovoljeni le metodi GET in POST
+header('Content-Type: application/json');	// MIME type of response
+header('Access-Control-Allow-Origin: *');	// Allow access from outside of current domain (CORS)
+header('Access-Control-Allow-Methods: GET');	// Allowed methods
 
 switch($_SERVER["REQUEST_METHOD"]){
 	case 'GET':
@@ -26,7 +26,7 @@ switch($_SERVER["REQUEST_METHOD"]){
 mysqli_close($database);
 
 // Functions
-function fetchRandomNames($gender){
+function fetchRandomNames($gender){ // Function fetches 10 random names of certain gender
 	global $database;
     $response=array();
     $gender=mysqli_escape_string($database, $gender);
@@ -37,15 +37,15 @@ function fetchRandomNames($gender){
 		$response[]=$vrstica;
 	}
     if(count($response) != 0){
-        http_response_code(201);		//OK
+        http_response_code(201);	//OK
         echo json_encode($response);
     }
     else{
-        http_response_code(404);		//Not found
+        http_response_code(404);	//Not found
     }
 }
 
-function fetchAllNames(){
+function fetchAllNames(){ // Function all names that are in the database (used for testing)
 	global $database;
 	$request="SELECT name, gender FROM application.randomnames";
 	$result=mysqli_query($database, $request);
@@ -54,11 +54,11 @@ function fetchAllNames(){
 		$response[]=$vrstica;
 	}
     if(count($response) != 0){
-        http_response_code(201);		//OK
+        http_response_code(201);	//OK
         echo json_encode($response);
     }
     else{
-        http_response_code(404);		//Not found
+        http_response_code(404);	//Not found
     }
 }
 

@@ -18,7 +18,7 @@ function userImages(){
 	httpRequest.send();
 	}
 
-function getImage(imagePath, imageName) {
+function getImage(imagePath, imageName) { // Function used for 
 	let div = document.createElement('div');
     var img = document.createElement('IMG');
     img.src = imagePath;

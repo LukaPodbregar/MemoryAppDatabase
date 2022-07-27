@@ -7,9 +7,9 @@ use ReallySimpleJWT\Token;
 
 $database = dbConnect();
 
-header('Content-Type: application/json');	
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET');	
+header('Content-Type: application/json');	// MIME type of response
+header('Access-Control-Allow-Origin: *');	// Allow access from outside of current domain (CORS)
+header('Access-Control-Allow-Methods: GET');	// Allowed methods
 
 switch($_SERVER["REQUEST_METHOD"]){
 	case 'GET':
@@ -29,7 +29,7 @@ switch($_SERVER["REQUEST_METHOD"]){
 mysqli_close($database);
 
 // Functions
-function fetchAllUsers(){
+function fetchAllUsers(){ // Function fetches all users and userIDs of users in database
 	global $database;
 	$response=array();
 	$request="SELECT username, userID FROM application.users";	
@@ -39,11 +39,11 @@ function fetchAllUsers(){
 		$response[]=$row;
 	}
 	
-	http_response_code(200);
+	http_response_code(200);	// OK
 	echo json_encode($response);
 }
 
-function loginUser($username, $password){
+function loginUser($username, $password){ // Function compares users login information to the data saved in the database. If successful, the function creates jwt token that is used in further requests
 	global $database;
 	$username=mysqli_escape_string($database, $username);
 	$passwordInput=mysqli_escape_string($database, $password);
@@ -52,10 +52,10 @@ function loginUser($username, $password){
 	$resultPW=mysqli_query($database, $requestPW);
 	$resultUserID=mysqli_query($database, $requestUserID);
 	
-
 	if(mysqli_num_rows($resultPW)>0){
 		$userID = $resultUserID->fetch_array()[0];
 		$hashedPassword = $resultPW->fetch_array()[0];
+		// Verify if password is correct
 		if(password_verify($passwordInput, $hashedPassword)){
 			// Create jwt token	
 			$secret = 'sec!ReT423*&';
@@ -66,15 +66,15 @@ function loginUser($username, $password){
 			$array = Array(
 				"LoginStatus" => $response,
 				"token" => $token);
-			http_response_code(200);
+			http_response_code(200);	// OK
 			echo json_encode($array);
 		}
 		else{
-			http_response_code(401); 
+			http_response_code(401);	// Unauthorized (wrong password)
 		}
 	}
 	else{
-		http_response_code(404);
+		http_response_code(404);	// Not found
 	}
 }
 

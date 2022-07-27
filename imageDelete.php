@@ -7,9 +7,9 @@ use ReallySimpleJWT\Token;
 
 $database = dbConnect();
 
-header('Content-Type: application/json');	
-header('Access-Control-Allow-Origin: *');	
-header('Access-Control-Allow-Methods: DELETE');		
+header('Content-Type: application/json');	// MIME type of response		
+header('Access-Control-Allow-Origin: *');   // Allow access from outside of current domain (CORS)	
+header('Access-Control-Allow-Methods: DELETE');	// Allowed methods		
 
 switch($_SERVER["REQUEST_METHOD"]){
 
@@ -26,7 +26,8 @@ switch($_SERVER["REQUEST_METHOD"]){
 mysqli_close($database);
 
 // Functions
-function deleteImage($token, $path){
+function deleteImage($token, $path){ // Function checks if token is correct. If it is, it deletes image and its data from database and server
+	global $database; 
 	global $database;
 	$token = mysqli_escape_string($database, $token);
 	$secret = 'sec!ReT423*&';
@@ -47,17 +48,17 @@ function deleteImage($token, $path){
 					unlink($path);
 				}
 				else{
-					http_response_code(500);
+					http_response_code(500);	//Server error
 					$msg = "Server error!";
 				}
 			}
 			else{
-				http_response_code(404);
+				http_response_code(404);	//Not found
 				$msg = "Image doesn't exist!";
 			}
         }
         else{
-            http_response_code(404);
+            http_response_code(404);	//Not found
             $msg = "User not found!";
         }
     echo $msg;

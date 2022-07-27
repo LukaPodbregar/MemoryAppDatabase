@@ -4,9 +4,9 @@ include("tools.php");
 
 $database = dbConnect();
 
-header('Content-Type: application/json');	//Nastavimo MIME tip vsebine responsea
-header('Access-Control-Allow-Origin: *');	//Dovolimo dostop izven trenutne domene (CORS)
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');		//V preflight poizvedbi za CORS sta dovoljeni le metodi GET in POST
+header('Content-Type: application/json');	// MIME type of response
+header('Access-Control-Allow-Origin: *');	// Allow access from outside of current domain (CORS)
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');		// Allowed methods
 
 switch($_SERVER["REQUEST_METHOD"]){
 	case 'GET':
@@ -52,21 +52,21 @@ switch($_SERVER["REQUEST_METHOD"]){
 mysqli_close($database);
 
 // Functions
-function fetchAllUsers(){
+function fetchAllUsers(){ // Function fetches all usernames
 	global $database;
 	$response=array();
 	$request="SELECT username FROM application.users";	
 	$result=mysqli_query($database, $request);
 	
-	while($vrstica=mysqli_fetch_assoc($result)){
-		$response[]=$vrstica;
+	while($row=mysqli_fetch_assoc($result)){
+		$response[]=$row;
 	}
 	
-	http_response_code(200);
+	http_response_code(200);	//OK
 	echo json_encode($response);
 }
 
-function fetchUser($userID){
+function fetchUser($userID){ // Function fetches username and hashed password from user with certain userID
 	global $database;
 	$userID=mysqli_escape_string($database, $userID);
 	$request="SELECT username, password FROM application.users WHERE userID=$userID";
@@ -74,15 +74,15 @@ function fetchUser($userID){
 
 	if(mysqli_num_rows($result)>0){
 		$response=mysqli_fetch_assoc($result);
-		http_response_code(200);		//OK
+		http_response_code(200);	//OK
 		echo json_encode($response);
 	}
 	else{
-		http_response_code(404);		//Not found
+		http_response_code(404);	//Not found
 	}
 }
 
-function addUser(){
+function addUser(){ // Function adds new user to database
 	global $database, $DEBUG;
 	$data = json_decode(file_get_contents('php://input'), true);
 	
@@ -94,12 +94,12 @@ function addUser(){
 			$request="INSERT INTO users (username, password) VALUES ('$username', '$password')";
 			
 			if(mysqli_query($database, $request)){
-				http_response_code(201);
+				http_response_code(201);	//OK
 				$response=sourceURL($username);
 				echo json_encode($response);
 			}
 			else{
-				http_response_code(500);		//Server error
+				http_response_code(500);	//Server error
 				
 				if($DEBUG){
 					readyError(mysqli_error($database));
@@ -116,7 +116,7 @@ function addUser(){
 	}
 }
 
-function updateUser($userID)
+function updateUser($userID) // Function updates data of already existing user with userID
 {
 	global $database, $DEBUG;
 	$userID = mysqli_escape_string($database, $userID);
@@ -132,7 +132,7 @@ function updateUser($userID)
 				http_response_code(204);	//OK with no content
 			}
 			else{
-				http_response_code(500);	// Internal Server Error (ni nujno vedno streznik kriv!)
+				http_response_code(500);	// Internal Server Error
 				
 				if($DEBUG){
 					readyError(mysqli_error($database));
@@ -140,15 +140,15 @@ function updateUser($userID)
 			}
 		}
 		else{
-			http_response_code(400);
+			http_response_code(400);	// Bad Request
 		}
 	}
 	else{
-		http_response_code(404);
+		http_response_code(404);	//Not found
 	}
 }	
 	
-function deleteUser($userID){	
+function deleteUser($userID){	 // Function deletes existing user with certain userID
 	global $database, $DEBUG;
 	$userID=mysqli_escape_string($database, $userID);
 
@@ -156,10 +156,10 @@ function deleteUser($userID){
 		$request="DELETE FROM application.users WHERE userID=$userID";
 		
 		if(mysqli_query($database, $request)){
-			http_response_code(204);
+			http_response_code(204);	//OK with no content
 		}
 		else{
-			http_response_code(500);
+			http_response_code(500);	// Internal Server Error
 			
 			if($DEBUG){
 				readyError(mysqli_error($database));
@@ -167,7 +167,7 @@ function deleteUser($userID){
 		}
 	}
 	else{
-		http_response_code(404);
+		http_response_code(404);	//Not found
 	}
 }
 ?>

@@ -7,7 +7,7 @@ const formToJSON = elements => [].reduce.call(elements, (data, element) =>
   return data;
 }, {});
  
-function addUser()
+function addUser() // Function used to add users with browser interface
 {
 	const data = formToJSON(document.getElementById("form").elements);
 	var JSONdata = JSON.stringify(data, null, "  ");					
