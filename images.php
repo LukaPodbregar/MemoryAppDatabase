@@ -16,6 +16,9 @@ switch($_SERVER["REQUEST_METHOD"]){
 		if(!empty($_GET["token"])){
 			fetchUserImages($_GET["token"]);	
 		}
+		else{
+			fetchPresetImages();
+		}
 		break;
 	}
 mysqli_close($database);
@@ -47,6 +50,23 @@ function fetchUserImages($token){ // Function checks if token is correct. If it 
 	}
 	else{
 		http_response_code(401);	//Not found
+	}
+}
+
+function fetchPresetImages(){ // Function fetches all preset images in random order
+	global $database;
+	$response=array();
+	$request="SELECT path, imageName, gender FROM application.imagesPreset ORDER BY RAND()";
+	$result=mysqli_query($database, $request);
+	if(mysqli_num_rows($result)>0){
+		while ($row = mysqli_fetch_assoc($result)){
+			$response[]=$row; 
+		}
+		http_response_code(201);    // OK
+		echo json_encode($response);
+	}
+	else{
+		http_response_code(404);	//Not found
 	}
 }
 
