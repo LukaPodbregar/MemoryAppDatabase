@@ -23,7 +23,7 @@ else {
 		<link rel="stylesheet" type="text/css" href="styleIndex.css" />
 	</head>
 	<body>
-	<h2>Login to Face app Administration interface</h2><br>
+	<h2>Login to Face remember Administration interface</h2><br>
 		<form action="" method="post">
 			<label for="username">Username:</label><br>
 			<input type="text" name="username" required/> <br>

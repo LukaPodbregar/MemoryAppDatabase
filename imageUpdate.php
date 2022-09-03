@@ -15,7 +15,6 @@ switch($_SERVER["REQUEST_METHOD"]){
 	case 'PUT':
 		if(!empty($_GET['token'])){
 			updateImage($_GET['token']);	
-			
 		}
 		break;
 

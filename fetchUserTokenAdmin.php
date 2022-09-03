@@ -29,16 +29,22 @@ function fetchUserToken($userID){ // Function fetches token for user with certai
 	$request="SELECT username FROM application.users WHERE userID=$userID";
 	$result=mysqli_query($database, $request);
 
-	if(mysqli_num_rows($result)>0){
-		$secret = 'sec!ReT423*&';
-		$expiration = time() + 3600;
-		$issuer = 'localhost';
-		$token = Token::create($userID, $secret, $expiration, $issuer);
-		http_response_code(200);	// OK
-		echo json_encode($token);
+	session_start();
+	if(!isset($_SESSION["login"]) || $_SESSION["login"]!=True){
+		http_response_code(404);	//Not found
 	}
 	else{
-		http_response_code(404);	//Not found
+		if(mysqli_num_rows($result)>0){
+			$secret = 'sec!ReT423*&';
+			$expiration = time() + 3600;
+			$issuer = 'localhost';
+			$token = Token::create($userID, $secret, $expiration, $issuer);
+			http_response_code(200);	// OK
+			echo json_encode($token);
+		}
+		else{
+			http_response_code(404);	//Not found
+		}
 	}
 }
 

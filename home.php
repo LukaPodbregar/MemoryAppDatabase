@@ -8,7 +8,7 @@ if(!isset($_SESSION["login"]) || $_SESSION["login"]!=True){
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Igra - Prva stran</title>
+		<title>Aplikacija - Prva stran</title>
 		<link rel="stylesheet" type="text/css" href="styleIndex.css" />
 	</head>
 	<body>

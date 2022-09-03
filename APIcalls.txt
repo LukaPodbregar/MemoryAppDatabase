@@ -1,15 +1,14 @@
 http://127.0.0.1/application/users ...[GET] return usernames of all users
 http://127.0.0.1/application/users ...[POST]  {"username": "", "password": ""} add new user
-http://127.0.0.1/application/users/X ... return username/pw of user id X
-http://127.0.0.1/application/images/X ... return imageName and image path of all images of token X
-http://127.0.0.1/application/imagesRandom/X ... return imageName and image path of all images of token X in random order
-http://127.0.0.1/application/login ... return usernames, userID of all users
-http://127.0.0.1/application/login/Y/Z ... returns 204 + JWT token if username Y and password Z match the one in database
-http://127.0.0.1/application/imagesDisplay/token ... returns images if valid token
-http://127.0.0.1/application/userImages/X ... displays image X from path 
-http://127.0.0.1/application/names ... returns list of all names and gender
-http://127.0.0.1/application/names/X ... X = male/female, returns 10 random names of certain gender
-http://127.0.0.1/application/imageUploadAndroid/X ... [POST] upload image of user with token X. As body it needs (gender, name and image)
+http://127.0.0.1/application/users/X ...[GET] return username/pw of user id X
+http://127.0.0.1/application/images ...[GET] return imageName, gender and image path of all images preset images
+http://127.0.0.1/application/images/X ...[GET] return imageName, gender and image path of all images of token X
+http://127.0.0.1/application/imagesRandom/X ...[GET] return imageName and image path of all images of token X in random order
+http://127.0.0.1/application/login ...[GET] return usernames, userID of all users
+http://127.0.0.1/application/login/Y/Z ...[GET] returns 204 + JWT token if username Y and password Z match the one in database
+http://127.0.0.1/application/names ... [GET] returns list of all names and gender
+http://127.0.0.1/application/names/X ...[GET] X = male/female, returns 10 random names of certain gender
+http://127.0.0.1/application/imageUploadAndroid/X ... [POST] upload image of user with token X {"gender":"", "name":"", "image":""}
 http://127.0.0.1/application/imageUpdate/X... [POST] update info of an image
 http://127.0.0.1/application/imageDelete/X&Y... [DELETE] delete image, X-token, Y-image path
 http://127.0.0.1/application/fetchUserTokenAdmin/X ... return token of user id X.. ONLY USED BY ADMIN!!
