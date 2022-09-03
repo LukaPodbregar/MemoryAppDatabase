@@ -12,6 +12,7 @@ http://127.0.0.1/application/names/X ... X = male/female, returns 10 random name
 http://127.0.0.1/application/imageUploadAndroid/X ... [POST] upload image of user with token X. As body it needs (gender, name and image)
 http://127.0.0.1/application/imageUpdate/X... [POST] update info of an image
 http://127.0.0.1/application/imageDelete/X&Y... [DELETE] delete image, X-token, Y-image path
+http://127.0.0.1/application/fetchUserTokenAdmin/X ... return token of user id X.. ONLY USED BY ADMIN!!
 
 
 

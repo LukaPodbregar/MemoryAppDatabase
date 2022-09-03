@@ -57,11 +57,10 @@ function fetchAllUsers(){ // Function fetches all usernames
 	$response=array();
 	$request="SELECT username FROM application.users";	
 	$result=mysqli_query($database, $request);
-	
+	$response[0]=""; // Users are numbered from 1 forward, while list is numbered from 0 forward... This line makes sure the 0 element of the table is ignored
 	while($row=mysqli_fetch_assoc($result)){
 		$response[]=$row;
 	}
-	
 	http_response_code(200);	//OK
 	echo json_encode($response);
 }
